@@ -1,7 +1,9 @@
 C = gcc
 CFLAGS = -g -fno-stack-protector -z noexecstack
 
-all: attack
+all: retlib
 
-attack: source1.c
-	$(CC) $(CFLAGS) -o attack stack.c 
+retlib: retlib.c
+	$(CC) -DBUF_SIZE=64 $(CFLAGS) -o retlib retlib.c
+	sudo chown root retlib
+	sudo chmod 4755 retlib
