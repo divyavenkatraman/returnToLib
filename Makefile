@@ -5,7 +5,7 @@ all: attackDASH
 
 attackZSH: offASLR onZSH shLoc exploit retlib
 
-attackDASH: offASLR exploitROP retlibROP
+attackDASH: offASLR retlibROP
 
 offASLR:
 	sudo sysctl -w kernel.randomize_va_space=0
@@ -16,15 +16,15 @@ shLoc: findLoc.c
 exploit: exploit.c
 	$(CC) -o exploit exploit.c
 	
-exploitROP: exploitROP.c
-	$(CC) -o exploitROP exploitROP.c
+exploitROP: exploitR.c
+	$(CC) -o exploitR exploitR.c
 retlib: retlib.c
 	$(CC) -DBUF_SIZE=64 $(CFLAGS) -o retlib retlib.c
 	sudo chown root retlib
 	sudo chmod 4755 retlib
-retlibROP: retlibROP.c
-	$(CC) -DBUF_SIZE=64 $(CFLAGS) -o retlibROP retlibROP.c
-	sudo chown root retlibROP
-	sudo chmod 4755 retlibROP
+retlibROP: retlibR.c
+	$(CC) -DBUF_SIZE=64 $(CFLAGS) -o retlibR retlibR.c
+	sudo chown root retlibR
+	sudo chmod 4755 retlibR
 
 clear: rm shLoc exploit retlib
